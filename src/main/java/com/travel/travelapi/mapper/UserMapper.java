@@ -1,13 +1,13 @@
 package com.travel.travelapi.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+
 import com.travel.travelapi.dto.AuthResponseDTO;
 import com.travel.travelapi.dto.LoginDTO;
-import com.travel.travelapi.dto.UserDTO;
 import com.travel.travelapi.dto.UserProfileDTO;
 import com.travel.travelapi.dto.UserRegistrationDTO;
 import com.travel.travelapi.entity.User;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
@@ -39,8 +39,7 @@ public class UserMapper {
 
 
         
-            authResponseDTO.setFirstName(user.getFirstName());
-            authResponseDTO.setLastName(user.getLastName());
+            authResponseDTO.setFirstName(user.getFullName());
         
 
         // Asignar el rol del usuario

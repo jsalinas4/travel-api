@@ -1,23 +1,5 @@
 package com.travel.travelapi.service.impl;
 
-import com.travel.travelapi.dto.AuthResponseDTO;
-import com.travel.travelapi.dto.LoginDTO;
-import com.travel.travelapi.dto.UserProfileDTO;
-import com.travel.travelapi.dto.UserRegistrationDTO;
-import com.travel.travelapi.entity.Role;
-import com.travel.travelapi.entity.User;
-import com.travel.travelapi.enums.ERole;
-import com.travel.travelapi.mapper.UserMapper;
-import com.travel.travelapi.repository.RoleRepository;
-import com.travel.travelapi.repository.UserRepository;
-import com.travel.travelapi.security.TokenProvider;
-import com.travel.travelapi.service.UserService;
-import lombok.RequiredArgsConstructor;
-import com.travel.travelapi.exception.BadRequestException;
-import com.travel.travelapi.exception.InvalidCredentialsException;
-import com.travel.travelapi.exception.ResourceNotFoundException;
-import com.travel.travelapi.exception.RoleNotFoundException ;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +7,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.travel.travelapi.dto.AuthResponseDTO;
+import com.travel.travelapi.dto.LoginDTO;
+import com.travel.travelapi.dto.UserProfileDTO;
+import com.travel.travelapi.dto.UserRegistrationDTO;
+import com.travel.travelapi.entity.Role;
+import com.travel.travelapi.entity.User;
+import com.travel.travelapi.enums.ERole;
+import com.travel.travelapi.exception.BadRequestException;
+import com.travel.travelapi.exception.InvalidCredentialsException;
+import com.travel.travelapi.exception.ResourceNotFoundException ;
+import com.travel.travelapi.exception.RoleNotFoundException;
+import com.travel.travelapi.mapper.UserMapper;
+import com.travel.travelapi.repository.RoleRepository;
+import com.travel.travelapi.repository.UserRepository;
+import com.travel.travelapi.security.TokenProvider;
+import com.travel.travelapi.service.UserService;
+
+import lombok.RequiredArgsConstructor;
 
 
 
@@ -72,11 +73,8 @@ public class UserServiceImpl implements UserService {
     if (roleEnum == ERole.USER) {
         // Crear un cliente
             
-        user.setFirstName(registrationDTO.getFirstName());
-        user.setLastName(registrationDTO.getLastName());
+        user.setFullName(registrationDTO.getFirstName() + " " + registrationDTO.getLastName());
         user.setRegistrationDate(registrationDTO.getRegistrationDate());
-        user.setNationality(registrationDTO.getNationality());
-        user.setBirthdate(registrationDTO.getBirthdate()); // Enlazar el cliente con el usuario
         
     }
     // Guardar el usuario en la base de datos
@@ -105,8 +103,7 @@ public class UserServiceImpl implements UserService {
         }
 
 
-            user.setFirstName(userProfileDTO.getFirstName());
-            user.setLastName(userProfileDTO.getLastName());
+            user.setFullName(userProfileDTO.getFirstName());
         
         // Guardar los cambios en la base de datos
         User updatedUser = userRepository.save(user);

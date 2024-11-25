@@ -1,8 +1,17 @@
 package com.travel.travelapi.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "users")
@@ -14,24 +23,29 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "nationality")
-    private String nationality;
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
 
-    @Column(name = "birthdate")
-    private LocalDate birthdate;
+    @Column(name = "gender")
+    private String gender;
+
+    @Column(name = "profile_photo")
+    private String profilePhoto;
+
+    @Column(name = "description", length = 500)
+    private String description;
 
     @Column(name = "registration_date")
     private LocalDate registrationDate;
